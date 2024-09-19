@@ -24,7 +24,7 @@ namespace OrderAPI.Controllers {
         /// </summary>
         /// <param name="orderDto">Order data transfer object</param>
         /// <returns>Created order</returns>
-        [HttpPost("Create an Order")]
+        [HttpPost("CreateAnOrder")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderDTO orderDto) {
             var createdOrder = await _orderService.CreateOrderAsync(orderDto);
             return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.OrderId }, createdOrder);
@@ -34,7 +34,7 @@ namespace OrderAPI.Controllers {
         /// Retrieves all orders.
         /// </summary>
         /// <returns>List of orders</returns>
-        [HttpGet("Get All Orders")]
+        [HttpGet("GetAllOrders")]
         public async Task<IActionResult> GetOrders() {
             var orders = await _orderService.GetOrdersAsync();
             return Ok(orders);
@@ -45,7 +45,7 @@ namespace OrderAPI.Controllers {
         /// </summary>
         /// <param name="paymentInfo">Payment information</param>
         /// <returns>No content</returns>
-        [HttpPost("Process Payment")]
+        [HttpPost("ProcessPayment")]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentInfo paymentInfo) {
             await _paymentChannel.Writer.WriteAsync(paymentInfo);
             _logger.LogInformation($"Payment info for order {paymentInfo.OrderId} received.");
@@ -57,7 +57,7 @@ namespace OrderAPI.Controllers {
         /// </summary>
         /// <param name="id">Order ID</param>
         /// <returns>Order details</returns>
-        [HttpGet("Get Order By ID")]
+        [HttpGet("GetOrderByID")]
         public async Task<IActionResult> GetOrderById(int id) {
             var order = await _orderService.GetOrderByIdAsync(id);
             if(order == null) {
